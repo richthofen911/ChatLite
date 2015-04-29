@@ -14,40 +14,35 @@
         android:layout_marginTop="75dp"
         />
 
-    <TextView
-        android:id="@+id/usrname"
-        android:text="Nickname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/usricon"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="50dp"
-        android:textSize="20sp"/>
     <EditText
         android:id="@+id/input_name"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/usrname"
-        android:layout_marginLeft="10dp"
-        android:layout_alignBottom="@id/usrname"
-        android:textSize="20sp"/>
+        android:layout_below="@id/usricon"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Username"
+        android:textSize="18sp"/>
 
-    <TextView
-        android:id="@+id/passwd"
-        android:text="Password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/usrname"
-        android:textSize="20sp"/>
     <EditText
         android:id="@+id/input_passwd"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_below="@id/input_name"
-        android:layout_toEndOf="@id/passwd"
-        android:layout_alignBottom="@id/passwd"
-        android:layout_marginLeft="10dp"
-        android:textSize="20sp"/>
+        android:layout_centerHorizontal="true"
+        android:hint="Password"
+        android:textSize="18sp"/>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="L O G I N"
+        android:textSize="18sp"
+        android:layout_below="@id/input_passwd"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:onClick="onLoginButtonClick"/>
 </RelativeLayout>
