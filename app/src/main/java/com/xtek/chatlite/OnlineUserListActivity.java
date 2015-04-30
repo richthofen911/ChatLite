@@ -1,9 +1,12 @@
 package com.xtek.chatlite;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -19,10 +22,11 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChatActivity extends ListActivity {
+public class OnlineUserListActivity extends Activity implements OnlineUserListAdapter.MyItemClickListener{
 
     // TODO: change this to your own Firebase URL
     private static final String FIREBASE_URL = "https://chatlite.firebaseio.com/";
@@ -36,29 +40,36 @@ public class ChatActivity extends ListActivity {
     private OnlineUserListAdapter mOnlineUserListAdapter;
     private Intent intent;
     private User me;
-    private String mTempID;
+
+    private RecyclerView mRecyclerView;
+    private ArrayList<String> onlineUsers = new ArrayList<>();
+    private OnlineUserListAdapter onlineUserListAdapter;
+
 
     private Map<String, Object> newPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.activity_onlineuser_list);
         intent = this.getIntent();
-        // Make sure we have a mUsername
         setupUsername();
+        setTitle("Current Online Users: ");
 
-        setTitle("Chatting as " + mUsername);
-
-        // Setup our Firebase ref
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        onlineUserListAdapter = new OnlineUserListAdapter(onlineUsers);
+        mRecyclerView.setAdapter(onlineUserListAdapter);
+        onlineUserListAdapter.setOnItemClickListener(this);
+        // Setup Firebase ref
         rootRef = new Firebase(FIREBASE_URL);
-        onlineUserRef = new Firebase(ONLINEUSER_URL).push();
-        //onlineUserRef = new Firebase(ONLINEUSER_URL);
+        onlineUserRef = new Firebase(ONLINEUSER_URL);
         Map<String, String> myInfo = new HashMap<String, String>();
         myInfo.put("username", mUsername);
-        onlineUserRef.setValue(myInfo);
-        mTempID = onlineUserRef.getKey();
-        System.out.println("push location unique id: " + mTempID);
+        onlineUserRef.child(mUsername).setValue(myInfo);
+
         onlineUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -74,34 +85,39 @@ public class ChatActivity extends ListActivity {
         onlineUserRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
+                newPost = (Map<String, Object>) dataSnapshot.getValue();
+                onlineUsers.add((String) newPost.get("username"));
                 System.out.println("Come User: " + newPost.get("username"));
+                onlineUserListAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 //System.out.println("The updated online user list is " + dataSnapshot.child("OnlineUsers").getValue());
-
-
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
+                for(int i = 0; i < onlineUsers.size(); i++){
+                    if(onlineUsers.get(i).equals(newPost.get("username"))){
+                        onlineUsers.remove(i);
+                        onlineUserListAdapter.notifyDataSetChanged();
+                    }
+                }
                 System.out.println("Leave User: " + newPost.get("username"));
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-
             }
         });
 
+/*
         // Setup our input methods. Enter key on the keyboard or pushing the send button
         EditText inputText = (EditText) findViewById(R.id.messageInput);
         inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -120,8 +136,9 @@ public class ChatActivity extends ListActivity {
                 sendMessage();
             }
         });
-
+*/
     }
+
 /*
     @Override
     public void onStart() {
@@ -129,7 +146,7 @@ public class ChatActivity extends ListActivity {
         // Setup our view and list adapter. Ensure it scrolls to the bottom as data changes
         final ListView listView = getListView();
         // Tell our list adapter that we only want 50 messages at a time
-        mOnlineUserListAdapter = new OnlineUserListAdapter(onlineUserRef, this, R.layout.online_user_list, mUsername);
+        //mOnlineUserListAdapter = new OnlineUserListAdapter(onlineUserRef, this, R.layout.activity_onlineuser_list, mUsername);
         listView.setAdapter(mOnlineUserListAdapter);
         mOnlineUserListAdapter.registerDataSetObserver(new DataSetObserver() {
             @Override
@@ -166,6 +183,11 @@ public class ChatActivity extends ListActivity {
         mOnlineUserListAdapter.cleanup();
     }
 */
+    @Override
+    public void onItemClick(View view, int position){
+        Toast.makeText(this, "position number: " + position, Toast.LENGTH_SHORT).show();
+    }
+
     private void setupUsername() {
         me = new User(intent.getStringExtra("username"));
         mUsername = me.getUserName();
@@ -186,6 +208,6 @@ public class ChatActivity extends ListActivity {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        rootRef.child("OnlineUsers").child(mTempID).removeValue();
+        rootRef.child("OnlineUsers").child(mUsername).removeValue();
     }
 }
