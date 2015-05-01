@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 
-public class LoginActivity extends Activity {
+public class ActivityLogin extends Activity {
 
     private EditText usrname_input;
     private EditText passwd_input;
@@ -35,7 +35,7 @@ public class LoginActivity extends Activity {
         userInfoPrefs = getApplication().getSharedPreferences("UserInfoPrefs", 0);
 
         if(userInfoPrefs.getString("username", null) != null){
-            goToOnlineUserList = new Intent(LoginActivity.this, OnlineUserListActivity.class);
+            goToOnlineUserList = new Intent(ActivityLogin.this, ActivityOnlineUserList.class);
             goToOnlineUserList.putExtra("username", userInfoPrefs.getString("username", null));
             startActivity(goToOnlineUserList);
         }
@@ -43,7 +43,7 @@ public class LoginActivity extends Activity {
 
     public void onLoginButtonClick(View view){
         userInfoPrefs.edit().putString("username", usrname_input.getText().toString()).apply();
-        goToOnlineUserList = new Intent(LoginActivity.this, OnlineUserListActivity.class);
+        goToOnlineUserList = new Intent(ActivityLogin.this, ActivityOnlineUserList.class);
         goToOnlineUserList.putExtra("username", usrname_input.getText().toString());
         startActivity(goToOnlineUserList);
     }

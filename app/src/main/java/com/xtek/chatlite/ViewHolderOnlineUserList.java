@@ -7,13 +7,13 @@ import android.widget.TextView;
 /**
  * Created by admin on 30/04/15.
  */
-public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class ViewHolderOnlineUserList extends RecyclerView.ViewHolder implements View.OnClickListener{
     //Customized ViewHolder Class，holding all views related to an item
 
     public TextView tv_username;
-    public OnlineUserListAdapter.MyItemClickListener myItemClickListener;
+    public AdapterOnlineUserList.MyItemClickListener myItemClickListener;
 
-    public MyViewHolder(View rootView, OnlineUserListAdapter.MyItemClickListener listener){
+    public ViewHolderOnlineUserList(View rootView, AdapterOnlineUserList.MyItemClickListener listener){
         super(rootView);
         tv_username = (TextView) rootView.findViewById(R.id.tv_aUser);
         this.myItemClickListener = listener;

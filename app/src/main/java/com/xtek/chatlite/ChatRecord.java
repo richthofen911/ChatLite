@@ -4,26 +4,26 @@ package com.xtek.chatlite;
  * @author greg
  * @since 6/21/13
  */
-public class Chat {
+public class ChatRecord {
 
     private String message;
-    private String author;
+    private String username;
 
     // Required default constructor for Firebase object mapping
     @SuppressWarnings("unused")
-    private Chat() {
+    private ChatRecord() {
     }
 
-    Chat(String message, String author) {
+    ChatRecord(String message, String author) {
         this.message = message;
-        this.author = author;
+        this.username = author;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getUsername() {
+        return username;
     }
 }

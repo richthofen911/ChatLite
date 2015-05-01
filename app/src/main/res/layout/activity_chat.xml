@@ -2,16 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    tools:context=".ChatActivity">
 
-    tools:context=".MainActivity">
-
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/listFooter"
-        android:layout_alignParentTop="true"
-        android:transcriptMode="alwaysScroll" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
 
     <LinearLayout
         android:id="@+id/listFooter"
@@ -35,6 +32,5 @@
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_send" />
     </LinearLayout>
-
 
 </RelativeLayout>
