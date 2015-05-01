@@ -21,6 +21,10 @@ public class ActivityLogin extends Activity {
     private Intent goToOnlineUserList;
     private SharedPreferences userInfoPrefs;
 
+    private static final String MAIN_URL_PREFIX = "https://chatlite";
+    private static final String MAIN_URL_SUFFIX = ".firebaseio.com/";
+    private String MY_MAIN_URL;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +38,9 @@ public class ActivityLogin extends Activity {
 
         userInfoPrefs = getApplication().getSharedPreferences("UserInfoPrefs", 0);
 
-        if(userInfoPrefs.getString("username", null) != null){
+        String myUserName = userInfoPrefs.getString("username", null);
+        if(myUserName != null){
+            User.setMY_MAIN_URL(MAIN_URL_PREFIX + myUserName + MAIN_URL_SUFFIX);
             goToOnlineUserList = new Intent(ActivityLogin.this, ActivityOnlineUserList.class);
             goToOnlineUserList.putExtra("username", userInfoPrefs.getString("username", null));
             startActivity(goToOnlineUserList);
@@ -42,11 +48,10 @@ public class ActivityLogin extends Activity {
     }
 
     public void onLoginButtonClick(View view){
+        User.setMY_MAIN_URL(MAIN_URL_PREFIX + usrname_input.getText().toString() + MAIN_URL_SUFFIX);
         userInfoPrefs.edit().putString("username", usrname_input.getText().toString()).apply();
         goToOnlineUserList = new Intent(ActivityLogin.this, ActivityOnlineUserList.class);
         goToOnlineUserList.putExtra("username", usrname_input.getText().toString());
         startActivity(goToOnlineUserList);
     }
-
-
 }

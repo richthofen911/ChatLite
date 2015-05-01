@@ -194,5 +194,9 @@ public class ActivityOnlineUserList extends Activity implements AdapterOnlineUse
     public void onDestroy(){
         super.onDestroy();
         rootRef.child("OnlineUsers").child(mUsername).removeValue();
+        Intent quitApp = new Intent();
+        quitApp.setClass(ActivityOnlineUserList.this, ActivityLogin.class);
+        quitApp.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(quitApp);
     }
 }

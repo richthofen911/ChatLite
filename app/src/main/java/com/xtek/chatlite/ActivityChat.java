@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,11 +28,9 @@ public class ActivityChat extends Activity {
     private ArrayList<ChatRecord> chatRecords = new ArrayList<>();
     private AdapterChatRecord adapterChatRecord;
 
-    private static final String MY_MAIN_URL = "https://chatlitegalaxy.firebaseio.com/";
     private static String MAIN_URL_PREFIX = "https://chatlite";
     private static String MAIN_URL_SUFFIX = ".firebaseio.com/";
     private static String TARGET_MAIN_URL;
-    private Firebase ref_myMain = new Firebase(MY_MAIN_URL);
     private Firebase ref_targetMain;
     private ImageButton btn_send;
     private EditText et_messageInput;
@@ -102,4 +101,12 @@ public class ActivityChat extends Activity {
         adapterChatRecord.notifyDataSetChanged();
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        System.out.println("target_url: " + TARGET_MAIN_URL + " my_url: " + User.getMY_MAIN_URL());
+        if(User.getMY_MAIN_URL().equals(TARGET_MAIN_URL)){
+            ref_targetMain.removeValue();
+        }
+    }
 }
