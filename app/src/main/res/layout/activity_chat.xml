@@ -18,7 +18,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/messageInput"
+            android:id="@+id/et_messageInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -27,10 +27,11 @@
             android:singleLine="true" />
 
         <ImageButton
-            android:id="@+id/sendButton"
+            android:id="@+id/btn_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_send" />
+            android:src="@android:drawable/ic_menu_send"
+            android:onClick="onSendClick"/>
     </LinearLayout>
 
 </RelativeLayout>

@@ -4,26 +4,26 @@ package com.xtek.chatlite;
  * Created by admin on 29/04/15.
  */
 public class User {
-    private String userName;
-    private String mood = "happy";
+    private static String userName;
+    private static String mood;
 
     public User(String name){
         userName = name;
     }
 
-    public void setUserName(String name){
+    public static void setUserName(String name){
         userName = name;
     }
 
-    public String getUserName(){
+    public static String getUserName(){
         return userName;
     }
 
-    public void setMood(String mood){
-        this.mood = mood;
+    public static void setMood(String mMood){
+        mood = mMood;
     }
 
-    public String getMood(){
+    public static String getMood(){
         return mood;
     }
 }

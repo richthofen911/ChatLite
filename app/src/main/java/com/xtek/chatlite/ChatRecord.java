@@ -14,9 +14,9 @@ public class ChatRecord {
     private ChatRecord() {
     }
 
-    ChatRecord(String message, String author) {
+    ChatRecord(String username, String message) {
+        this.username = username;
         this.message = message;
-        this.username = author;
     }
 
     public String getMessage() {

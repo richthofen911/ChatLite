@@ -23,6 +23,7 @@ public class ViewHolderOnlineUserList extends RecyclerView.ViewHolder implements
     @Override
     public void onClick(View v){
         if(myItemClickListener != null){
+            ActivityOnlineUserList.nameForUrl = tv_username.getText().toString();
             myItemClickListener.onItemClick(v, getPosition());
         }
     }

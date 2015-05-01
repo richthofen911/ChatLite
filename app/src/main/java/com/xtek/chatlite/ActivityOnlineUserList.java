@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -23,21 +24,19 @@ public class ActivityOnlineUserList extends Activity implements AdapterOnlineUse
     // TODO: change this to your own Firebase URL
     private static final String FIREBASE_URL = "https://chatlite.firebaseio.com/";
     private static final String ONLINEUSER_URL = "https://chatlite.firebaseio.com/OnlineUsers";
+    public static String nameForUrl;
 
-    private String mUsername;
+    public static String mUsername;
     private Firebase rootRef;
     private Firebase onlineUserRef;
     private ValueEventListener mConnectedListener;
     private AdapterOnlineUserList mAdapterOnlineUserList;
     private Intent intent;
     private Intent goToChat;
-    private User me;
 
     private RecyclerView mRecyclerView;
     private ArrayList<String> onlineUsers = new ArrayList<>();
     private AdapterOnlineUserList adapterOnlineUserList;
-
-
 
     private Map<String, Object> newPost;
 
@@ -178,28 +177,18 @@ public class ActivityOnlineUserList extends Activity implements AdapterOnlineUse
 */
     @Override
     public void onItemClick(View view, int position){
+
         goToChat = new Intent(ActivityOnlineUserList.this, ActivityChat.class);
-        goToChat.putExtra("username", mUsername);
+        goToChat.putExtra("targetName", nameForUrl);
         startActivity(goToChat);
 
     }
 
     private void setupUsername() {
-        me = new User(intent.getStringExtra("username"));
-        mUsername = me.getUserName();
+        User.setUserName(intent.getStringExtra("username"));
+        mUsername = User.getUserName();
     }
 
-    private void sendMessage() {
-        EditText inputText = (EditText) findViewById(R.id.messageInput);
-        String input = inputText.getText().toString();
-        if (!input.equals("")) {
-            // Create our 'model', a Chat object
-            ChatRecord chatRecord = new ChatRecord(input, mUsername);
-            // Create a new, auto-generated child of that chat location, and save our chat data there
-            rootRef.child("Chat").child(mUsername).setValue(chatRecord.getMessage());
-            inputText.setText("");
-        }
-    }
 
     @Override
     public void onDestroy(){
