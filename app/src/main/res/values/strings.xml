@@ -7,5 +7,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_chat">ChatActivity</string>
+    <string name="title_activity_activity_register">ActivityRegister</string>
 
 </resources>
