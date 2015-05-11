@@ -15,20 +15,21 @@
         />
 
     <EditText
-        android:id="@+id/input_email"
+        android:id="@+id/et_input_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/usricon"
         android:layout_marginTop="25dp"
         android:layout_centerHorizontal="true"
         android:hint="Email"
+        android:inputType="textEmailAddress"
         android:textSize="18sp"/>
 
     <EditText
-        android:id="@+id/input_name"
+        android:id="@+id/et_input_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/input_email"
+        android:layout_below="@id/et_input_email"
         android:layout_marginTop="25dp"
         android:layout_centerHorizontal="true"
         android:hint="Username"
@@ -43,7 +44,7 @@
         android:layout_marginTop="45dp"
         android:textStyle="bold"
         android:onClick="onLoginButtonClick"
-        android:layout_below="@+id/input_name"
+        android:layout_below="@+id/et_input_name"
         android:layout_alignParentStart="true" />
 
     <Button
@@ -54,6 +55,6 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_alignTop="@+id/btn_login"
-        android:layout_alignEnd="@+id/input_name"
+        android:layout_alignEnd="@+id/et_input_name"
         android:onClick="onRegisterButtonClick"/>
 </RelativeLayout>

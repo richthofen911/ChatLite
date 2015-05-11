@@ -12,7 +12,7 @@ import android.widget.ImageView;
 public class ActivityLogin extends Activity {
 
     private EditText et_email;
-    private EditText usrname_input;
+    private EditText et_name;
     private EditText passwd_input;
     private ImageView userIcon;
     private String usrname;
@@ -31,8 +31,8 @@ public class ActivityLogin extends Activity {
         setContentView(R.layout.activity_login);
 
         userIcon = (ImageView) findViewById(R.id.usricon);
-        et_email = (EditText) findViewById(R.id.et_messageInput);
-        usrname_input = (EditText) findViewById(R.id.input_name);
+        et_email = (EditText) findViewById(R.id.et_input_email);
+        et_name = (EditText) findViewById(R.id.et_input_name);
         userIcon.setImageResource(R.drawable.pewpewpew);
         Button btn_login = (Button) findViewById(R.id.btn_login);
         Button btn_register = (Button) findViewById(R.id.btn_register);
@@ -54,11 +54,11 @@ public class ActivityLogin extends Activity {
     }
 
     public void onLoginButtonClick(View view){
-        User.setMY_MAIN_URL(MAIN_URL_PREFIX + usrname_input.getText().toString() + MAIN_URL_SUFFIX);
+        User.setMY_MAIN_URL(MAIN_URL_PREFIX + et_name.getText().toString() + MAIN_URL_SUFFIX);
         userInfoPrefs.edit().putString("email", et_email.getText().toString()).apply();
-        userInfoPrefs.edit().putString("username", usrname_input.getText().toString()).apply();
+        userInfoPrefs.edit().putString("username", et_name.getText().toString()).apply();
         goToOnlineUserList = new Intent(ActivityLogin.this, ActivityOnlineUserList.class);
-        goToOnlineUserList.putExtra("username", usrname_input.getText().toString());
+        goToOnlineUserList.putExtra("username", et_name.getText().toString());
         startActivity(goToOnlineUserList);
     }
 }
