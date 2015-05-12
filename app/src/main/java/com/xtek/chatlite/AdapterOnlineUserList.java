@@ -11,9 +11,9 @@ public class AdapterOnlineUserList extends RecyclerView.Adapter<ViewHolderOnline
 
     MyItemClickListener myItemClickListener;
 
-    public ArrayList<String> onlineUsers = new ArrayList<>();
+    public ArrayList<User> onlineUsers = new ArrayList<>();
 
-    public AdapterOnlineUserList(ArrayList<String> data){
+    public AdapterOnlineUserList(ArrayList<User> data){
         onlineUsers = data;
     }
 
@@ -26,7 +26,8 @@ public class AdapterOnlineUserList extends RecyclerView.Adapter<ViewHolderOnline
 
     @Override
     public void onBindViewHolder(ViewHolderOnlineUserList viewHolder, int position) {
-        viewHolder.tv_username.setText(onlineUsers.get(position));
+        viewHolder.tv_username.setText(onlineUsers.get(position).getUserName());
+        viewHolder.tv_username.setHint(onlineUsers.get(position).getUserEmail());
     }
 
     @Override
@@ -35,7 +36,7 @@ public class AdapterOnlineUserList extends RecyclerView.Adapter<ViewHolderOnline
     }
 
     public interface MyItemClickListener{
-        public void onItemClick(View view, int position);
+        void onItemClick(View view, int position);
     }
 
     public void setOnItemClickListener(MyItemClickListener listener){

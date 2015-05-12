@@ -1,35 +1,40 @@
 package com.xtek.chatlite;
 
+/**
+ * Created by Tuotuo on 11/05/2015.
+ */
 public class User {
-    private static String userName;
-    private static String mood;
-    private static String MY_MAIN_URL;
 
-    public User(String name){
+    private String userName;
+    private String mood;
+    private String userEmail;
+
+    public User(String name, String email){
+        userName = name;
+        userEmail = email;
+    }
+
+    public void setUserName(String name){
         userName = name;
     }
 
-    public static void setUserName(String name){
-        userName = name;
-    }
-
-    public static String getUserName(){
+    public String getUserName(){
         return userName;
     }
 
-    public static void setMood(String mMood){
+    public void setMood(String mMood){
         mood = mMood;
     }
 
-    public static String getMood(){
+    public String getMood(){
         return mood;
     }
 
-    public static void setMY_MAIN_URL(String url){
-        MY_MAIN_URL = url;
+    public void setUserEmail(String email){
+        userEmail = email;
     }
 
-    public static String getMY_MAIN_URL(){
-        return MY_MAIN_URL;
+    public String getUserEmail(){
+        return userEmail;
     }
 }

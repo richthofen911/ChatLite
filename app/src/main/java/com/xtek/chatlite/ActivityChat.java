@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -34,7 +32,7 @@ public class ActivityChat extends Activity {
     private Firebase ref_targetMain;
     private ImageButton btn_send;
     private EditText et_messageInput;
-    private String mUsername = User.getUserName();
+    private String mUsername = Me.getUserName();
 
     private Map<String, Object> newPost;
 
@@ -47,7 +45,7 @@ public class ActivityChat extends Activity {
 
         intent = this.getIntent();
 
-        TARGET_MAIN_URL = MAIN_URL_PREFIX + intent.getStringExtra("targetName") + MAIN_URL_SUFFIX;
+        TARGET_MAIN_URL = MAIN_URL_PREFIX + intent.getStringExtra("targetEmail").substring(2, 7) + MAIN_URL_SUFFIX;
         setupUsername();
 
         recyclerView_chatRecord = (RecyclerView) findViewById(R.id.recyclerview_chat);
@@ -88,7 +86,7 @@ public class ActivityChat extends Activity {
     }
 
     private void setupUsername() {
-        mUsername = User.getUserName();
+        mUsername = Me.getUserName();
     }
 
     public void onSendClick(View view){
@@ -104,8 +102,8 @@ public class ActivityChat extends Activity {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        System.out.println("target_url: " + TARGET_MAIN_URL + " my_url: " + User.getMY_MAIN_URL());
-        if(User.getMY_MAIN_URL().equals(TARGET_MAIN_URL)){
+        System.out.println("target_url: " + TARGET_MAIN_URL + " my_url: " + Me.getMY_MAIN_URL());
+        if(Me.getMY_MAIN_URL().equals(TARGET_MAIN_URL)){
             ref_targetMain.removeValue();
         }
     }
