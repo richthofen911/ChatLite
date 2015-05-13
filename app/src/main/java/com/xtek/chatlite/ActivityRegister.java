@@ -3,11 +3,8 @@ package com.xtek.chatlite;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +14,7 @@ import android.widget.TextView;
 
 public class ActivityRegister extends Activity {
 
-    private static String url_register_prefix = "http://192.168.128.98:8888/?email=";
+    private static String url_register_prefix = "http://104.167.102.201:8888/?email=";
     private String email = "";
 
     ImageView holderIcon;

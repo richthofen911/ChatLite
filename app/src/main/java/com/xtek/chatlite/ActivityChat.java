@@ -26,7 +26,7 @@ public class ActivityChat extends Activity {
     private ArrayList<ChatRecord> chatRecords = new ArrayList<>();
     private AdapterChatRecord adapterChatRecord;
 
-    private static String MAIN_URL_PREFIX = "https://chatlite";
+    private static String MAIN_URL_PREFIX = "https://clqq";
     private static String MAIN_URL_SUFFIX = ".firebaseio.com/";
     private static String TARGET_MAIN_URL;
     private Firebase ref_targetMain;

@@ -28,8 +28,6 @@ public class ActivityOnlineUserList extends Activity implements AdapterOnlineUse
     public String mEmail;
     private Firebase rootRef;
     private Firebase onlineUserRef;
-    private ValueEventListener mConnectedListener;
-    private AdapterOnlineUserList mAdapterOnlineUserList;
     private Intent intent;
     private Intent goToChat;
 
@@ -62,7 +60,7 @@ public class ActivityOnlineUserList extends Activity implements AdapterOnlineUse
         Map<String, String> myInfo = new HashMap<String, String>();
         myInfo.put("email", mEmail);
         myInfo.put("username", mUsername);
-        onlineUserRef.child(mUsername).setValue(myInfo);
+        onlineUserRef.child("clqq" + mEmail.substring(2, 7)).setValue(myInfo);
 
         onlineUserRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -138,10 +136,11 @@ public class ActivityOnlineUserList extends Activity implements AdapterOnlineUse
     @Override
     public void onDestroy(){
         super.onDestroy();
-        rootRef.child("OnlineUsers").child(mUsername).removeValue();
-        Intent quitApp = new Intent();
-        quitApp.setClass(ActivityOnlineUserList.this, ActivityLogin.class);
-        quitApp.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(quitApp);
+        System.out.println("remove user: " + rootRef.child("OnlineUsers").child("clqq" + mEmail.substring(2, 7)));
+        rootRef.child("OnlineUsers").child("clqq" + mEmail.substring(2, 7)).removeValue();
+        //Intent quitApp = new Intent();
+        //quitApp.setClass(ActivityOnlineUserList.this, ActivityLogin.class);
+        //quitApp.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //startActivity(quitApp);
     }
 }

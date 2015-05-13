@@ -53,8 +53,9 @@ public class ActivityLogin extends Activity {
     }
 
     public void onLoginButtonClick(View view){
-        Me.setMY_MAIN_URL(MAIN_URL_PREFIX + et_email.getText().toString() + MAIN_URL_SUFFIX);
+        Me.setMY_MAIN_URL(MAIN_URL_PREFIX + et_email.getText().toString().substring(2, 7) + MAIN_URL_SUFFIX);
         Me.setUserName(et_name.getText().toString());
+        Me.setUserEmail(et_email.getText().toString());
         userInfoPrefs.edit().putString("email", et_email.getText().toString()).apply();
         userInfoPrefs.edit().putString("username", et_name.getText().toString()).apply();
         goToOnlineUserList = new Intent(ActivityLogin.this, ActivityOnlineUserList.class);
